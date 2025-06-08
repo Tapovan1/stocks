@@ -1,0 +1,55 @@
+version: '3.8'
+
+services:
+  mongodb:
+    image: mongo:latest
+    container_name: mongodb
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+    networks:
+      - stock-network
+
+  server:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    container_name: stock-server
+    ports:
+      - "5000:5000"
+    depends_on:
+      - mongodb
+    environment:
+      - PORT=5000
+      - MONGODB_URI=mongodb://mongodb:27017/school-stock-management
+      - NODE_ENV=development
+    networks:
+      - stock-network
+    volumes:
+      - ./server:/app
+      - /app/node_modules
+
+  client:
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    container_name: stock-client
+    ports:
+      - "5173:5173"
+    depends_on:
+      - server
+    environment:
+      - VITE_API_URL=http://localhost:5000/api
+    networks:
+      - stock-network
+    volumes:
+      - ./client:/app
+      - /app/node_modules
+
+networks:
+  stock-network:
+    driver: bridge
+
+volumes:
+  mongodb_data:
