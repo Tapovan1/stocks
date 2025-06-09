@@ -9,7 +9,7 @@ export default defineConfig({
     allowedHosts: ['stocks.tapovanvidhyamandirsankul.com'],
     proxy: {
       '/api': {
-        target: 'http://server:5000',
+        target: 'stocks.tapovanvidhyamandirsankul.com',
         changeOrigin: true,
       },
     },
