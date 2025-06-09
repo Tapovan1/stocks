@@ -40,7 +40,7 @@ services:
     depends_on:
       - server
     environment:
-       - VITE_API_URL=https://stocks.tapovanvidhyamandirsankul.com
+       - VITE_API_URL=https://stocks.tapovanvidhyamandirsankul.com/api
     networks:
       - stock-network
     volumes:
