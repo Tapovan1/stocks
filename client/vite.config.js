@@ -11,7 +11,7 @@ export default defineConfig({
       '/api': {
         target: 'http://server:5000',  // or 'http://localhost:5000' if running locally outside Docker
         changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api/, '/api'), // usually optional, but explicit
+        rewrite: (path) => path // usually optional, but explicit
       },
     },
   },
